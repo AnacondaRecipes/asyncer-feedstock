@@ -1,5 +1,5 @@
 {% set name = "asyncer" %}
-{% set version = "0.0.8" %}
+{% set version = "0.0.7" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/asyncer-{{ version }}.tar.gz
-  sha256: a589d980f57e20efb07ed91d0dbe67f1d2fd343e7142c66d3a099f05c620739c
+  sha256: d5e563fb0f56eb87b97257984703658a4f5bbdb52ff851b3e8ed864cc200b1d2
 
 build:
   noarch: python
@@ -16,13 +16,13 @@ build:
 
 requirements:
   host:
-    - python >=3.8
-    - pdm-backend
+    - python >=3.8,<4.0
+    - poetry-core
     - pip
   run:
-    - python >=3.8
+    - python >=3.8.0,<4.0.0
     - anyio >=3.4.0,<5.0
-    - typing_extensions >=4.8.0
+    - typing_extensions >=4.8.0,<5.0.0
 
 test:
   imports:
@@ -37,8 +37,6 @@ about:
   summary: Asyncer, async and await, focused on developer experience.
   license: MIT
   license_file: LICENSE
-  dev_url: https://github.com/tiangolo/asyncer
-  doc_url: https://github.com/fastapi/asyncer/tree/main/docs
 
 extra:
   anaconda-services:
