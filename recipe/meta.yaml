@@ -6,37 +6,53 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/asyncer-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: a589d980f57e20efb07ed91d0dbe67f1d2fd343e7142c66d3a099f05c620739c
 
 build:
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: true  # [py<38]
 
 requirements:
   host:
-    - python >=3.8
+    - python
     - pdm-backend
     - pip
   run:
-    - python >=3.8
+    - python
     - anyio >=3.4.0,<5.0
     - typing_extensions >=4.8.0
 
 test:
+  source_files:
+    - tests
+    - docs_src
   imports:
     - asyncer
   commands:
     - pip check
+    - pytest -v tests
   requires:
     - pip
+    - pytest
 
 about:
-  home: https://github.com/tiangolo/asyncer
+  home: https://github.com/fastapi/asyncer
   summary: Asyncer, async and await, focused on developer experience.
   license: MIT
+  license_family: MIT
   license_file: LICENSE
+  description: |
+    Asyncer is a small library built on top of AnyIO.
+    Asyncer has a small number of utility functions that allow working with async, await, and concurrent code
+    in a more convenient way under my (@tiangolo - Sebastián Ramírez) very opinionated and subjective point of view.
+    The main goal of Asyncer is to improve developer experience by providing better support for autocompletion and inline errors
+    in the editor, and more certainty that the code is bug-free by providing better support for type checking tools like mypy.
+    Asyncer also tries to improve convenience and simplicity when working with async code mixed with regular blocking code,
+    allowing to use them together in a simpler way... again, under my very subjective point of view.
+  dev_url: https://github.com/fastapi/asyncer
+  doc_url: https://asyncer.tiangolo.com
 
 extra:
   recipe-maintainers:
