@@ -25,6 +25,8 @@ requirements:
     - sniffio >=1.1
     - typing_extensions >=4.12.0  # [py<315]
 
+# E   ModuleNotFoundError: No module named 'scripts'
+{% set ignore_tests = " --ignore=tests/test_prepare_release.py" %}
 test:
   source_files:
     - tests
@@ -33,7 +35,7 @@ test:
     - asyncer
   commands:
     - pip check
-    - pytest -v tests
+    - pytest -v tests {{ ignore_tests }}
   requires:
     - pip
     - pytest
